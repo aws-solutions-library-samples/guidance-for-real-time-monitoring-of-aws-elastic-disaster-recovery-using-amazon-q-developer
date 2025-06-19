@@ -1,10 +1,6 @@
 # Guidance for Real-time monitoring of AWS Elastic Disaster Recovery using Amazon Q Developer
 
-## Table of Contents (required)
-
-List the top-level sections of the README template, along with a hyperlink to the specific section.
-
-### Required
+## Table of Contents
 
 1. [Overview](#overview-required)
     - [Architecture](#architecture)
@@ -28,14 +24,11 @@ List the top-level sections of the README template, along with a hyperlink to th
 
 This solution enables customers to implement comprehensive real-time monitoring and intelligent analysis of their AWS Elastic Disaster Recovery (DRS) environments using Amazon Q Developer. By integrating DRS APIs, CloudWatch metrics, and Q Developer's AI capabilities, this architecture provides seamless visibility into replication health, recovery readiness, and operational insights. Customers can leverage Q Developer's natural language interface to query their DRS environment, analyze server states, and receive intelligent recommendations for optimizing their disaster recovery posture. Rather than relying solely on manual console navigation or basic Amazon CloudWatch dashboards, customers can now interact with their DRS infrastructure through conversational AI that understands disaster recovery concepts and provides contextual guidance. This solution unlocks enhanced DRS monitoring capabilities by enabling customers to gain deeper operational insights and make informed decisions about their disaster recovery strategy through intelligent, real-time analysis powered by Amazon Q Developer.
 
-
-2. Include the architecture diagram image, as well as the steps explaining the high-level overview and flow of the architecture. 
-    - To add a screenshot, create an ‘assets/images’ folder in your repository and upload your screenshot to it. Then, using the relative file path, add it to your README. 
-
 ### Architecture
 
+![reference architecture](assets/guidance-for-real-time-monitoring-of-aws-elastic-disaster-recovery-using-amazon-q-developer.jpg)
 
-### Cost ( required )
+### Cost
 
 This section is for a high-level cost estimate. Think of a likely straightforward scenario with reasonable assumptions based on the problem the Guidance is trying to solve. Provide an in-depth cost breakdown table in this section below ( you should use AWS Pricing Calculator to generate cost breakdown ).
 
