@@ -1,11 +1,4 @@
-# Guidance Title (required)
-
-The Guidance title should be consistent with the title established first in Alchemy.
-
-**Example:** *Guidance for Product Substitutions on AWS*
-
-This title correlates exactly to the Guidance it’s linked to, including its corresponding sample code repository. 
-
+# Guidance for Real-time monitoring of AWS Elastic Disaster Recovery using Amazon Q Developer
 
 ## Table of Contents (required)
 
@@ -14,14 +7,15 @@ List the top-level sections of the README template, along with a hyperlink to th
 ### Required
 
 1. [Overview](#overview-required)
+    - [Architecture](#architecture)
     - [Cost](#cost)
-2. [Prerequisites](#prerequisites-required)
+3. [Prerequisites](#prerequisites-required)
     - [Operating System](#operating-system-required)
-3. [Deployment Steps](#deployment-steps-required)
-4. [Deployment Validation](#deployment-validation-required)
-5. [Running the Guidance](#running-the-guidance-required)
-6. [Next Steps](#next-steps-required)
-7. [Cleanup](#cleanup-required)
+4. [Deployment Steps](#deployment-steps-required)
+5. [Deployment Validation](#deployment-validation-required)
+6. [Running the Guidance](#running-the-guidance-required)
+7. [Next Steps](#next-steps-required)
+8. [Cleanup](#cleanup-required)
 
 ***Optional***
 
@@ -32,13 +26,14 @@ List the top-level sections of the README template, along with a hyperlink to th
 
 ## Overview (required)
 
-1. Provide a brief overview explaining the what, why, or how of your Guidance. You can answer any one of the following to help you write this:
+This solution enables customers to implement comprehensive real-time monitoring and intelligent analysis of their AWS Elastic Disaster Recovery (DRS) environments using Amazon Q Developer. By integrating DRS APIs, CloudWatch metrics, and Q Developer's AI capabilities, this architecture provides seamless visibility into replication health, recovery readiness, and operational insights. Customers can leverage Q Developer's natural language interface to query their DRS environment, analyze server states, and receive intelligent recommendations for optimizing their disaster recovery posture. Rather than relying solely on manual console navigation or basic Amazon CloudWatch dashboards, customers can now interact with their DRS infrastructure through conversational AI that understands disaster recovery concepts and provides contextual guidance. This solution unlocks enhanced DRS monitoring capabilities by enabling customers to gain deeper operational insights and make informed decisions about their disaster recovery strategy through intelligent, real-time analysis powered by Amazon Q Developer.
 
-    - **Why did you build this Guidance?**
-    - **What problem does this Guidance solve?**
 
 2. Include the architecture diagram image, as well as the steps explaining the high-level overview and flow of the architecture. 
     - To add a screenshot, create an ‘assets/images’ folder in your repository and upload your screenshot to it. Then, using the relative file path, add it to your README. 
+
+### Architecture
+
 
 ### Cost ( required )
 
