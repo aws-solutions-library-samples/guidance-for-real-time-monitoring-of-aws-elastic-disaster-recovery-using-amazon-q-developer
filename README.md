@@ -15,13 +15,6 @@
 7. [Next Steps](#next-steps)
 8. [Cleanup](#cleanup)
 
-***Optional***
-
-8. [FAQ, known issues, additional considerations, and limitations](#faq-known-issues-additional-considerations-and-limitations-optional)
-9. [Revisions](#revisions-optional)
-10. [Notices](#notices-optional)
-11. [Authors](#authors-optional)
-
 ## Overview
 
 This solution enables customers to implement comprehensive real-time monitoring and intelligent analysis of their AWS Elastic Disaster Recovery (DRS) environments using Amazon Q Developer. By integrating DRS APIs, CloudWatch metrics, and Q Developer's AI capabilities, this architecture provides seamless visibility into replication health, recovery readiness, and operational insights. Customers can leverage Q Developer's natural language interface to query their DRS environment, analyze server states, and receive intelligent recommendations for optimizing their disaster recovery posture. Rather than relying solely on manual console navigation or basic Amazon CloudWatch dashboards, customers can now interact with their DRS infrastructure through conversational AI that understands disaster recovery concepts and provides contextual guidance. This solution unlocks enhanced DRS monitoring capabilities by enabling customers to gain deeper operational insights and make informed decisions about their disaster recovery strategy through intelligent, real-time analysis powered by Amazon Q Developer.
@@ -71,67 +64,33 @@ aws cloudformation describe-stacks --stack-name <STACK_NAME>
 
 ## Running the Guidance
 
-<Provide instructions to run the Guidance with the sample data or input provided, and interpret the output received.> 
+### Install Elastic Disaster Recovery Replication Agent on an EC2 instance.
 
-This section should include:
+To test the Guidance, install Elastic Disaster Recovery Replication Agent on an EC2 instance.
 
-* Guidance inputs
-* Commands to run
-* Expected output (provide screenshot if possible)
-* Output description
+### Observe CreateSourceServerForDrs in AWS CloudTrail events history.
 
+After the AWS Replication Agent is installed successfully on an EC2 instance, `CreateSourceServerForDrs` CloudTrail event is generated.
 
+### Wait for the delivery of CloudTrail event notification by Amazon Q into your Slack channel.
 
-## Next Steps (required)
+Amazon Q Developer is subscribed to Amazon SNS Topic. After receiving the CloudWatch event, Amazon Q Dveloper will deliver the event into your Slack channel.
+
+### Build a simple prompt in your Slack channel and ask Amazon Q status of replication status of source servers in Elastic Disaster Recovery service.
+
+In the Slack channel, use a simple prompt such as "@Amazon Q What is the status of data replication of my source servers in Elastic Disaster Recovery service in Ireland region?" to interact with Elastic Disaster Recovery resources through simple conversational commands in Slack, without needing to access the AWS Console.
+
+## Next Steps
 
 Provide suggestions and recommendations about how customers can modify the parameters and the components of the Guidance to further enhance it according to their requirements.
 
 
-## Cleanup (required)
+## Cleanup
 
-- Include detailed instructions, commands, and console actions to delete the deployed Guidance.
-- If the Guidance requires manual deletion of resources, such as the content of an S3 bucket, please specify.
+To delete and cleanup deployed resources, use one of the following methods:
 
-
-
-## FAQ, known issues, additional considerations, and limitations (optional)
-
-
-**Known issues (optional)**
-
-<If there are common known issues, or errors that can occur during the Guidance deployment, describe the issue and resolution steps here>
-
-
-**Additional considerations (if applicable)**
-
-<Include considerations the customer must know while using the Guidance, such as anti-patterns, or billing considerations.>
-
-**Examples:**
-
-- “This Guidance creates a public AWS bucket required for the use-case.”
-- “This Guidance created an Amazon SageMaker notebook that is billed per hour irrespective of usage.”
-- “This Guidance creates unauthenticated public API endpoints.”
-
-
-Provide a link to the *GitHub issues page* for users to provide feedback.
-
-
-**Example:** *“For any feedback, questions, or suggestions, please use the issues tab under this repo.”*
-
-## Revisions (optional)
-
-Document all notable changes to this project.
-
-Consider formatting this section based on Keep a Changelog, and adhering to Semantic Versioning.
-
-## Notices (optional)
-
-Include a legal disclaimer
-
-**Example:**
-*Customers are responsible for making their own independent assessment of the information in this Guidance. This Guidance: (a) is for informational purposes only, (b) represents AWS current product offerings and practices, which are subject to change without notice, and (c) does not create any commitments or assurances from AWS and its affiliates, suppliers or licensors. AWS products or services are provided “as is” without warranties, representations, or conditions of any kind, whether express or implied. AWS responsibilities and liabilities to its customers are controlled by AWS agreements, and this Guidance is not part of, nor does it modify, any agreement between AWS and its customers.*
-
-
-## Authors (optional)
-
-Name of code contributors
+- From the [AWS Management Console](https://console.aws.amazon.com) in your web browser, open the CloudFormation console, click **Stacks** on the left-hand menu, select the stack with the name `<STACK_NAME>`, and click **Delete**.
+- If AWS CLI is installed, run the following command: 
+```
+aws cloudformation delete-stack --stack-name `<STACK_NAME>`
+```
