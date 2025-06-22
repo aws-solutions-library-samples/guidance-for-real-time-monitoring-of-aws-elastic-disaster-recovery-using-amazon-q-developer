@@ -1,0 +1,257 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "CloudFormation template for AWS Elastic Disaster Recovery monitoring with Amazon Q Developer",
+  "Parameters": {
+    "SlackChannelId": {
+      "Type": "String",
+      "Description": "ID of the Slack channel",
+      "MinLength": 1,
+      "MaxLength": 256
+    },
+    "SlackWorkspaceId": {
+      "Type": "String",
+      "Description": "ID of the Slack workspace",
+      "MinLength": 1,
+      "MaxLength": 256
+    },
+    "EnvironmentName": {
+      "Type": "String",
+      "Description": "Environment name (e.g., dev, prod)"
+    }
+  },
+  "Resources": {
+    "DRSSlackNotificationTopic": {
+      "Type": "AWS::SNS::Topic",
+      "Properties": {
+        "DisplayName": {
+          "Fn::Sub": "DRS-Notifications-${EnvironmentName}-${AWS::StackName}"
+        },
+        "TopicName": {
+          "Fn::Sub": "DRS-${EnvironmentName}-${AWS::StackName}"
+        }
+      }
+    },
+    "DRSSlackNotificationTopicPolicy": {
+      "Type": "AWS::SNS::TopicPolicy",
+      "Properties": {
+        "Topics": [
+          {
+            "Ref": "DRSSlackNotificationTopic"
+          }
+        ],
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Id": "__default_policy_ID",
+          "Statement": [
+            {
+              "Sid": "__default_statement_ID",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": "*"
+              },
+              "Action": [
+                "SNS:GetTopicAttributes",
+                "SNS:SetTopicAttributes",
+                "SNS:AddPermission",
+                "SNS:RemovePermission",
+                "SNS:DeleteTopic",
+                "SNS:Subscribe",
+                "SNS:ListSubscriptionsByTopic",
+                "SNS:Publish"
+              ],
+              "Resource": {
+                "Ref": "DRSSlackNotificationTopic"
+              },
+              "Condition": {
+                "StringEquals": {
+                  "AWS:SourceOwner": {
+                    "Ref": "AWS::AccountId"
+                  }
+                }
+              }
+            },
+            {
+              "Sid": "AllowEventsToPublishToTopic",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "events.amazonaws.com"
+              },
+              "Action": "sns:Publish",
+              "Resource": {
+                "Ref": "DRSSlackNotificationTopic"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "AmazonQDeveloperRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "RoleName": {
+          "Fn::Sub": "drs-q-slack-${EnvironmentName}-${AWS::StackName}-${AWS::Region}"
+        },
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "chatbot.amazonaws.com"
+              },
+              "Action": "sts:AssumeRole"
+            }
+          ]
+        },
+        "ManagedPolicyArns": [
+          "arn:aws:iam::aws:policy/AmazonQDeveloperAccess"
+        ],
+        "Policies": [
+          {
+            "PolicyName": {
+              "Fn::Sub": "AWS-Chatbot-NotificationsOnly-Policy-${EnvironmentName}-${AWS::StackName}-${AWS::Region}"
+            },
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "cloudwatch:Describe*",
+                    "cloudwatch:Get*",
+                    "cloudwatch:List*"
+                  ],
+                  "Resource": "*"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "SlackChannelConfiguration": {
+      "Type": "AWS::Chatbot::SlackChannelConfiguration",
+      "Properties": {
+        "ConfigurationName": {
+          "Fn::Sub": "aws-drs-slack-notifications-${EnvironmentName}-${AWS::StackName}"
+        },
+        "IamRoleArn": {
+          "Fn::GetAtt": [
+            "AmazonQDeveloperRole",
+            "Arn"
+          ]
+        },
+        "SlackChannelId": {
+          "Ref": "SlackChannelId"
+        },
+        "SlackWorkspaceId": {
+          "Ref": "SlackWorkspaceId"
+        },
+        "GuardrailPolicies": [
+          "arn:aws:iam::aws:policy/AmazonQDeveloperAccess",
+          "arn:aws:iam::aws:policy/AWSElasticDisasterRecoveryConsoleFullAccess_v2"
+        ],
+        "LoggingLevel": "NONE",
+        "SnsTopicArns": [
+          {
+            "Ref": "DRSSlackNotificationTopic"
+          }
+        ]
+      }
+    },
+    "DRSAPICallsRule": {
+      "Type": "AWS::Events::Rule",
+      "Properties": {
+        "Name": {
+          "Fn::Sub": "drs-api-calls-rule-${EnvironmentName}-${AWS::StackName}"
+        },
+        "Description": "Monitor DRS API calls",
+        "EventPattern": {
+          "source": [
+            "aws.drs"
+          ],
+          "detail-type": [
+            "AWS API Call via CloudTrail"
+          ],
+          "detail": {
+            "eventSource": [
+              "drs.amazonaws.com"
+            ],
+            "eventName": [
+              "InitializeService",
+              "CreateSourceServerForDrs",
+              "DisconnectSourceServer",
+              "StartRecovery",
+              "StartReplication",
+              "StopFailback",
+              "DeleteSourceServer",
+              "ReverseReplication",
+              "StartFailbackLaunch",
+              "DisconnectRecoveryInstance",
+              "DeleteRecoveryInstance"
+            ]
+          }
+        },
+        "State": "ENABLED",
+        "Targets": [
+          {
+            "Arn": {
+              "Ref": "DRSSlackNotificationTopic"
+            },
+            "Id": {
+              "Fn::Sub": "DRSNotificationTarget-${AWS::StackName}"
+            }
+          }
+        ]
+      }
+    },
+    "DRSEventsRule": {
+      "Type": "AWS::Events::Rule",
+      "Properties": {
+        "Name": {
+          "Fn::Sub": "drs-events-rule-${EnvironmentName}-${AWS::StackName}"
+        },
+        "Description": "Monitor DRS Events",
+        "EventPattern": {
+          "source": [
+            "aws.drs"
+          ],
+          "detail-type": [
+            "DRS Source Server Data Replication Stalled Change",
+            "DRS Recovery Instance Failback State Change",
+            "DRS Source Server Launch Result",
+            "DRS PIT Snapshot Taken"
+          ]
+        },
+        "State": "ENABLED",
+        "Targets": [
+          {
+            "Arn": {
+              "Ref": "DRSSlackNotificationTopic"
+            },
+            "Id": {
+              "Fn::Sub": "DRSEventsTarget-${AWS::StackName}"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "Outputs": {
+    "SlackChannelConfigurationArn": {
+      "Description": "ARN of the Slack Channel Configuration",
+      "Value": {
+        "Fn::GetAtt": [
+          "SlackChannelConfiguration",
+          "Arn"
+        ]
+      }
+    },
+    "DRSSlackNotificationTopicArn": {
+      "Description": "ARN of the DRS Notification SNS Topic",
+      "Value": {
+        "Ref": "DRSSlackNotificationTopic"
+      }
+    }
+  }
+}
