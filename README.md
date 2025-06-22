@@ -20,7 +20,7 @@
 10. [Notices](#notices-optional)
 11. [Authors](#authors-optional)
 
-## Overview (required)
+## Overview
 
 This solution enables customers to implement comprehensive real-time monitoring and intelligent analysis of their AWS Elastic Disaster Recovery (DRS) environments using Amazon Q Developer. By integrating DRS APIs, CloudWatch metrics, and Q Developer's AI capabilities, this architecture provides seamless visibility into replication health, recovery readiness, and operational insights. Customers can leverage Q Developer's natural language interface to query their DRS environment, analyze server states, and receive intelligent recommendations for optimizing their disaster recovery posture. Rather than relying solely on manual console navigation or basic Amazon CloudWatch dashboards, customers can now interact with their DRS infrastructure through conversational AI that understands disaster recovery concepts and provides contextual guidance. This solution unlocks enhanced DRS monitoring capabilities by enabling customers to gain deeper operational insights and make informed decisions about their disaster recovery strategy through intelligent, real-time analysis powered by Amazon Q Developer.
 
@@ -30,112 +30,44 @@ This solution enables customers to implement comprehensive real-time monitoring 
 
 ### Cost
 
-This section is for a high-level cost estimate. Think of a likely straightforward scenario with reasonable assumptions based on the problem the Guidance is trying to solve. Provide an in-depth cost breakdown table in this section below ( you should use AWS Pricing Calculator to generate cost breakdown ).
+You are responsible for the cost of the AWS services used while running this Guidance. Amazon Q Developer for chat channels is available at no extra cost under the free tier. The serverless architecture leverages pay-as-you-go services with very low usage costs: Amazon SNS ($0.60 per million notifications) and Amazon EventBridge ($1.00 per million events with free delivery to services in the same account). For a typical deployment monitoring 5-10 servers, the estimated monthly cost would likely be under $1, as you would need to generate hundreds of thousands of events to reach even a single dollar in charges. Even for large environments with dozens or hundreds of servers, monthly costs would typically remain under $5 unless you're implementing extensive logging or custom metrics.
 
-Start this section with the following boilerplate text:
-
-_You are responsible for the cost of the AWS services used while running this Guidance. As of <month> <year>, the cost for running this Guidance with the default settings in the <Default AWS Region (Most likely will be US East (N. Virginia)) > is approximately $<n.nn> per month for processing ( <nnnnn> records )._
-
-Replace this amount with the approximate cost for running your Guidance in the default Region. This estimate should be per month and for processing/serving resonable number of requests/entities.
-
-Suggest you keep this boilerplate text:
-_We recommend creating a [Budget](https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html) through [AWS Cost Explorer](https://aws.amazon.com/aws-cost-management/aws-cost-explorer/) to help manage costs. Prices are subject to change. For full details, refer to the pricing webpage for each AWS service used in this Guidance._
-
-### Sample Cost Table ( required )
-
-**Note : Once you have created a sample cost table using AWS Pricing Calculator, copy the cost breakdown to below table and upload a PDF of the cost estimation on BuilderSpace. Do not add the link to the pricing calculator in the ReadMe.**
-
-The following table provides a sample cost breakdown for deploying this Guidance with the default parameters in the US East (N. Virginia) Region for one month.
-
-| AWS service  | Dimensions | Cost [USD] |
-| ----------- | ------------ | ------------ |
-| Amazon API Gateway | 1,000,000 REST API calls per month  | $ 3.50month |
-| Amazon Cognito | 1,000 active users per month without advanced security feature | $ 0.00 |
-
-## Prerequisites (required)
-
-### Operating System (required)
-
-- Talk about the base Operating System (OS) and environment that can be used to run or deploy this Guidance, such as *Mac, Linux, or Windows*. Include all installable packages or modules required for the deployment. 
-- By default, assume Amazon Linux 2/Amazon Linux 2023 AMI as the base environment. All packages that are not available by default in AMI must be listed out.  Include the specific version number of the package or module.
-
-**Example:**
-“These deployment instructions are optimized to best work on **<Amazon Linux 2 AMI>**.  Deployment in another OS may require additional steps.”
-
-- Include install commands for packages, if applicable.
+## Prerequisites
 
 
-### Third-party tools (If applicable)
+### Third-party tools
 
-*List any installable third-party tools required for deployment.*
+* A Slack channel (private or public)
 
+### AWS account requirements
 
-### AWS account requirements (If applicable)
-
-*List out pre-requisites required on the AWS account if applicable, this includes enabling AWS regions, requiring ACM certificate.*
-
-**Example:** “This deployment requires you have public ACM certificate available in your AWS account”
-
-**Example resources:**
-- ACM certificate 
-- DNS record
-- S3 bucket
-- VPC
-- IAM role with specific permissions
-- Enabling a Region or service etc.
+* You have source server(s) being protected with Elastic Disaster Recovery service.
+* You have authorized Amazon Q Developer to access your Slack workspace.
 
 
-### aws cdk bootstrap (if sample code has aws-cdk)
+### Supported Regions
 
-<If using aws-cdk, include steps for account bootstrap for new cdk users.>
+This Guidance can be deployed in all regions mentioned here https://docs.aws.amazon.com/chatbot/latest/adminguide/chatbot-regions.html
 
-**Example blurb:** “This Guidance uses aws-cdk. If you are using aws-cdk for first time, please perform the below bootstrapping....”
+## Deployment Steps
 
-### Service limits  (if applicable)
-
-<Talk about any critical service limits that affect the regular functioning of the Guidance. If the Guidance requires service limit increase, include the service name, limit name and link to the service quotas page.>
-
-### Supported Regions (if applicable)
-
-<If the Guidance is built for specific AWS Regions, or if the services used in the Guidance do not support all Regions, please specify the Region this Guidance is best suited for>
+1. Make sure you have a Slack channel created and authorized Amazon Q Developer to access your Slack workspace prior to deploying this Guidance.
+2. Copy the CloudFormation template provided in the Guidance and deploy via CloudFormation.
 
 
-## Deployment Steps (required)
+## Deployment Validation
 
-Deployment steps must be numbered, comprehensive, and usable to customers at any level of AWS expertise. The steps must include the precise commands to run, and describe the action it performs.
+To validate deployment, use one or more of the following methods:
 
-* All steps must be numbered.
-* If the step requires manual actions from the AWS console, include a screenshot if possible.
-* The steps must start with the following command to clone the repo. ```git clone xxxxxxx```
-* If applicable, provide instructions to create the Python virtual environment, and installing the packages using ```requirement.txt```.
-* If applicable, provide instructions to capture the deployed resource ARN or ID using the CLI command (recommended), or console action.
+* To validate the deployment, open CloudFormation console in your AWS Management Console, click **Stacks** on the left-hand menu, and verify the stack with the name `<STACK_NAME>` has a status of **CREATE_COMPLETE**. After clicking the stack name, click the **Outputs** tab and take note of the **SlackChannelConfigurationArn** and **DRSSlackNotificationTopicArn**.
 
- 
-**Example:**
-
-1. Clone the repo using command ```git clone xxxxxxxxxx```
-2. cd to the repo folder ```cd <repo-name>```
-3. Install packages in requirements using command ```pip install requirement.txt```
-4. Edit content of **file-name** and replace **s3-bucket** with the bucket name in your account.
-5. Run this command to deploy the stack ```cdk deploy``` 
-6. Capture the domain name created by running this CLI command ```aws apigateway ............```
+* If AWS CLI is installed, run the following command to validate the deployment has a status of **CREATE_COMPLETE**, and take note of the **SlackChannelConfigurationArn** and **DRSSlackNotificationTopicArn** output values:
+```
+aws cloudformation describe-stacks --stack-name <STACK_NAME>
+```
 
 
-
-## Deployment Validation  (required)
-
-<Provide steps to validate a successful deployment, such as terminal output, verifying that the resource is created, status of the CloudFormation template, etc.>
-
-
-**Examples:**
-
-* Open CloudFormation console and verify the status of the template with the name starting with xxxxxx.
-* If deployment is successful, you should see an active database instance with the name starting with <xxxxx> in        the RDS console.
-*  Run the following CLI command to validate the deployment: ```aws cloudformation describe xxxxxxxxxxxxx```
-
-
-
-## Running the Guidance (required)
+## Running the Guidance
 
 <Provide instructions to run the Guidance with the sample data or input provided, and interpret the output received.> 
 
