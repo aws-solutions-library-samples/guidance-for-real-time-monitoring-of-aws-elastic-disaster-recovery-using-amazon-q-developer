@@ -5,13 +5,15 @@
 1. [Overview](#overview-required)
     - [Architecture](#architecture)
     - [Cost](#cost)
-3. [Prerequisites](#prerequisites-required)
-    - [Operating System](#operating-system-required)
-4. [Deployment Steps](#deployment-steps-required)
-5. [Deployment Validation](#deployment-validation-required)
-6. [Running the Guidance](#running-the-guidance-required)
-7. [Next Steps](#next-steps-required)
-8. [Cleanup](#cleanup-required)
+3. [Prerequisites](#prerequisites)
+    - [Third-party tools](#third-party-tools)
+    - [AWS account requirements](#aws-account-requirements)
+    - [Supported Regions](#supported-regions)
+4. [Deployment Steps](#deployment-steps)
+5. [Deployment Validation](#deployment-validation)
+6. [Running the Guidance](#running-the-guidance)
+7. [Next Steps](#next-steps)
+8. [Cleanup](#cleanup)
 
 ***Optional***
 
