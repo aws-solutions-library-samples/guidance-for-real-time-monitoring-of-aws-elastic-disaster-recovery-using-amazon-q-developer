@@ -78,7 +78,7 @@ Amazon Q Developer is subscribed to Amazon SNS Topic. After receiving the CloudW
 
 ### Build a simple prompt in your Slack channel and ask Amazon Q status of replication status of source servers in Elastic Disaster Recovery service.
 
-In the Slack channel, use a simple prompt such as "@Amazon Q What is the status of data replication of my source servers in Elastic Disaster Recovery service in Ireland region?" to interact with Elastic Disaster Recovery resources through simple conversational commands in Slack, without needing to access the AWS Console.
+In the Slack channel, use a simple prompt such as "**@Amazon Q What is the status of data replication of my source servers in Elastic Disaster Recovery service in Ireland region?**" to interact with Elastic Disaster Recovery resources through simple conversational commands in Slack, without needing to access the AWS Console.
 
 ## Next Steps
 
