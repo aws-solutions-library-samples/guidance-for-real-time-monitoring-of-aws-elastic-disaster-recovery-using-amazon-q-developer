@@ -82,8 +82,7 @@ In the Slack channel, use a simple prompt such as "**@Amazon Q What is the statu
 
 ## Next Steps
 
-Provide suggestions and recommendations about how customers can modify the parameters and the components of the Guidance to further enhance it according to their requirements.
-
+- Incident tickets can be automatically created and routed to appropriate teams when CloudWatch emits specific events, such as replication stalled events.
 
 ## Cleanup
 
