@@ -83,6 +83,7 @@ In the Slack channel, use a simple prompt such as "**@Amazon Q What is the statu
 ## Next Steps
 
 - Incident tickets can be automatically created and routed to appropriate teams when CloudWatch emits specific events, such as replication stalled events.
+- The solution can be deployed at AWS Organizational level montitoring all AWS accounts or a subset of accounts.
 
 ## Cleanup
 
