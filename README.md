@@ -92,5 +92,5 @@ To delete and cleanup deployed resources, use one of the following methods:
 - From the [AWS Management Console](https://console.aws.amazon.com) in your web browser, open the CloudFormation console, click **Stacks** on the left-hand menu, select the stack with the name `<STACK_NAME>`, and click **Delete**.
 - If AWS CLI is installed, run the following command: 
 ```
-aws cloudformation delete-stack --stack-name `<STACK_NAME>`
+aws cloudformation delete-stack --stack-name <STACK_NAME>
 ```
