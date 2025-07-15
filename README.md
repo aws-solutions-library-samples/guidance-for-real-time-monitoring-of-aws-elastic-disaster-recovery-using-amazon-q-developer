@@ -46,7 +46,7 @@ This Guidance can be deployed in all regions mentioned here https://docs.aws.ama
 
 ## Deployment Steps
 
-1. Make sure you have a Slack channel created and authorized Amazon Q Developer to access your Slack workspace prior to deploying this Guidance.
+1. Make sure you have a Slack channel created and authorized Amazon Q Developer to access your Slack workspace prior to deploying this Guidance. Follow the instructions in section 3 through subsection 3.2.2 as outlined in the [blog](https://aws.amazon.com/blogs/storage/real-time-monitoring-of-elastic-disaster-recovery-using-amazon-q-developer/) post to complete this task.
 2. Copy the [CloudFormation template](source/realTimeDrsCfn.json) provided in the Guidance and deploy via CloudFormation.
 
 
