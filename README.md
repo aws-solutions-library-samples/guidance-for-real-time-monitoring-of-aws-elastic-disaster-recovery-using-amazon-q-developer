@@ -47,7 +47,7 @@ This Guidance can be deployed in all regions mentioned here https://docs.aws.ama
 ## Deployment Steps
 
 1. Make sure you have a Slack channel created and authorized Amazon Q Developer to access your Slack workspace prior to deploying this Guidance.
-2. Copy the ![CloudFormation template](source/realTimeDrsCfn.json) provided in the Guidance and deploy via CloudFormation.
+2. Copy the [CloudFormation template](source/realTimeDrsCfn.json) provided in the Guidance and deploy via CloudFormation.
 
 
 ## Deployment Validation
