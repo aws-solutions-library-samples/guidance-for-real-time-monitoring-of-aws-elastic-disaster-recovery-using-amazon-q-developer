@@ -47,7 +47,9 @@
               "Sid": "__default_statement_ID",
               "Effect": "Allow",
               "Principal": {
-                "AWS": "*"
+                "AWS": {
+                  "Fn::Sub": "arn:aws:iam::${AWS::AccountId}:root"
+                }
               },
               "Action": [
                 "SNS:GetTopicAttributes",
