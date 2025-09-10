@@ -28,7 +28,8 @@
         },
         "TopicName": {
           "Fn::Sub": "DRS-${EnvironmentName}-${AWS::StackName}"
-        }
+        },
+        "KmsMasterKeyId": "alias/aws/sns"
       }
     },
     "DRSSlackNotificationTopicPolicy": {
@@ -120,7 +121,11 @@
                     "cloudwatch:Get*",
                     "cloudwatch:List*"
                   ],
-                  "Resource": "*"
+                  "Resource": [
+                    {
+                      "Fn::Sub": "arn:aws:cloudwatch:${AWS::Region}:${AWS::AccountId}:*"
+                    }
+                  ]
                 }
               ]
             }
