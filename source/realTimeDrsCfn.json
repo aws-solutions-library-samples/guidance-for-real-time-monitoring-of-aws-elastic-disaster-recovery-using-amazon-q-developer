@@ -1,6 +1,6 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
-  "Description": "CloudFormation template for AWS Elastic Disaster Recovery monitoring with Amazon Q Developer",
+  "Description": "This CloudFormation template creates IAM roles, IAM policies, SNS Topic, EventBridge rules, and configures Slack channel with Amazon Q Developer (SO9626) to monitor Elastic Disaster Recovery servers.",
   "Parameters": {
     "SlackChannelId": {
       "Type": "String",
