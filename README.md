@@ -17,7 +17,7 @@
 
 ## Overview
 
-This solution enables customers to implement comprehensive real-time monitoring and intelligent analysis of their AWS Elastic Disaster Recovery (DRS) environments using Amazon Q Developer (the most capable generative AI–powered assistant for software development). By integrating DRS APIs, CloudWatch metrics, and Q Developer's AI capabilities, this architecture provides seamless visibility into replication health, recovery readiness, and operational insights. Customers can leverage Q Developer's natural language interface to query their DRS environment, analyze server states, and receive intelligent recommendations for optimizing their disaster recovery posture. Rather than relying solely on manual console navigation or basic Amazon CloudWatch dashboards, customers can now interact with their DRS infrastructure through conversational AI that understands disaster recovery concepts and provides contextual guidance. This solution unlocks enhanced DRS monitoring capabilities by enabling customers to gain deeper operational insights and make informed decisions about their disaster recovery strategy through intelligent, real-time analysis powered by Amazon Q Developer.
+This solution enables customers to implement comprehensive real-time monitoring and intelligent analysis of their AWS Elastic Disaster Recovery (DRS) environments using Amazon Q Developer (the most capable generative AI–powered assistant for software development). By integrating Elastic Disaster Recovery APIs, CloudWatch metrics, and Q Developer's AI capabilities, this architecture provides seamless visibility into replication health, recovery readiness, and operational insights. Customers can leverage Q Developer's natural language interface to query their Elastic Disaster Recovery environment, analyze server states, and receive intelligent recommendations for optimizing their disaster recovery posture. Rather than relying solely on manual console navigation or basic Amazon CloudWatch dashboards, customers can now interact with their Elastic Disaster Recovery infrastructure through conversational AI that understands disaster recovery concepts and provides contextual guidance. This solution unlocks enhanced Elastic Disaster Recovery monitoring capabilities by enabling customers to gain deeper operational insights and make informed decisions about their disaster recovery strategy through intelligent, real-time analysis powered by Amazon Q Developer.
 
 ### Architecture
 
@@ -46,9 +46,29 @@ This Guidance can be deployed in all regions mentioned here https://docs.aws.ama
 
 ## Deployment Steps
 
-1. Make sure you have a Slack channel created and authorized Amazon Q Developer to access your Slack workspace prior to deploying this Guidance. Follow the instructions in section 3 through subsection 3.2.2 as outlined in the [blog](https://aws.amazon.com/blogs/storage/real-time-monitoring-of-elastic-disaster-recovery-using-amazon-q-developer/) post to complete this task.
-2. Copy the [CloudFormation template](source/realTimeDrsCfn.json) provided in the Guidance and deploy via CloudFormation.
+### Prerequisites Setup
+1. Administrator creates and configures Slack workspace integration
+   - Create a dedicated Slack channel (private or public) for  Elastic Disaster Recovery monitoring notifications
+   - Authorize Amazon Q Developer to access your Slack workspace following the instructions in sections 3 through 3.2.2 of the [blog post](https://aws.amazon.com/blogs/storage/real-time-monitoring-of-
+elastic-disaster-recovery-using-amazon-q-developer/)
 
+### Infrastructure Deployment
+2. Administrator deploys the monitoring infrastructure using CloudFormation
+   - Download the [CloudFormation template](source/realTimeDrsCfn.json) provided in this Guidance
+   - Deploy the template via AWS CloudFormation console or AWS CLI to create:
+      - Amazon EventBridge rules to capture Elastic Disaster Recovery events
+      - Amazon SNS topic for event notifications
+      - IAM role for Amazon Q Developer service
+      - Amazon Q Developer Slack channel configuration
+
+### Service Integration
+3. AWS services automatically establish event flow
+   - AWS Elastic Disaster Recovery service generates CloudTrail events when source servers are created, modified, or experience status changes
+   - Amazon EventBridge default event bus receives these Elastic Disaster Recovery events automatically
+   - The deployed EventBridge rule filters events based on predefined patterns to identify critical Elastic Disaster Recovery events
+   - Amazon EventBridge routes matched events to the configured Amazon SNS topic
+   - Amazon Q Developer, integrated with your Slack workspace, subscribes to the SNS topic to receive Elastic Disaster Recovery notifications
+   - Amazon Q Developer automatically delivers event notifications to your designated Slack channel
 
 ## Deployment Validation
 
