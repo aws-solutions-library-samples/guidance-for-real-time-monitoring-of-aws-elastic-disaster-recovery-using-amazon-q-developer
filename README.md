@@ -123,6 +123,10 @@ Users can then interact with Amazon Q Developer in the Slack channel using natur
 - "Show me source servers with stalled replication"
 - "What's the recovery readiness of server X?"
 
+An example prompt showing interactive capabilities of Amazon Q Developer using natural language is below:
+
+![natural language capabilities](assets/naturalLanguagePromptQ.png)
+
 ## Next Steps
 
 - Incident tickets can be automatically created and routed to appropriate teams when CloudWatch emits specific events, such as replication stalled events.
