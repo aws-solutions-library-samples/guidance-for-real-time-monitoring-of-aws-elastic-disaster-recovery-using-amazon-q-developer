@@ -5,15 +5,20 @@
 1. [Overview](#overview-required)
     - [Architecture](#architecture)
     - [Cost](#cost)
-3. [Prerequisites](#prerequisites)
+2. [Prerequisites](#prerequisites)
     - [Third-party tools](#third-party-tools)
     - [AWS account requirements](#aws-account-requirements)
     - [Supported Regions](#supported-regions)
-4. [Deployment Steps](#deployment-steps)
-5. [Deployment Validation](#deployment-validation)
+3. [Deployment Steps](#deployment-steps)
+    - [Prerequisites Setup](#prerequisites-setup)
+    - [Infrastructure Deployment](#infrastructure-deployment)
+    - [Service Integration](#service-integration)
+4. [Deployment Validation](#deployment-validation)
+5. [Notification Details](#notification-details)
 6. [Running the Guidance](#running-the-guidance)
-7. [Next Steps](#next-steps)
-8. [Cleanup](#cleanup)
+7. [Interactive Capabilities](#interactive-capabilities)
+8. [Next Steps](#next-steps)
+9. [Cleanup](#cleanup)
 
 ## Overview
 
@@ -38,7 +43,6 @@ You are responsible for the cost of the AWS services used while running this Gui
 
 * You have source server(s) being protected with Elastic Disaster Recovery service.
 * You have authorized Amazon Q Developer to access your Slack workspace.
-
 
 ### Supported Regions
 
@@ -81,6 +85,20 @@ To validate deployment, use one or more of the following methods:
 aws cloudformation describe-stacks --stack-name <STACK_NAME>
 ```
 
+## Notification Details
+
+When Elastic Disaster Recovery events occur, Amazon Q Developer delivers structured notifications to your Slack channel containing:
+
+**Event Information**:
+- Event title (e.g., API executions such as CreateSourceServerForDrs and Events mentioned in this [AWS documentation](https://docs.aws.amazon.com/drs/latest/userguide/monitoring-event-bridge.html))
+- AWS region where the event occurred
+- Account ID
+- Notification details
+- Source server ID
+
+The following example shows a notification delivered to Slack channel when a source server's replication enters a stalled state:
+
+![source server stalled state](assets/StalledEvent.png)
 
 ## Running the Guidance
 
@@ -98,10 +116,12 @@ Amazon Q Developer is subscribed to Amazon SNS Topic. After receiving the CloudW
 
 ![agent_installation_event](assets/CreateSourceServerForDrsEvent.png)
 
+## Interactive Capabilities
 
-### Build a simple prompt in your Slack channel and ask Amazon Q status of replication status of source servers in Elastic Disaster Recovery service.
-
-In the Slack channel, use a simple prompt such as "**@Amazon Q What is the status of data replication of my source servers in Elastic Disaster Recovery service in Ireland region?**" to interact with Elastic Disaster Recovery resources through simple conversational commands in Slack, without needing to access the AWS Console.
+Users can then interact with Amazon Q Developer in the Slack channel using natural language queries such as:
+- "What is the replication status of my source servers in X region?"
+- "Show me source servers with stalled replication"
+- "What's the recovery readiness of server X?"
 
 ## Next Steps
 
