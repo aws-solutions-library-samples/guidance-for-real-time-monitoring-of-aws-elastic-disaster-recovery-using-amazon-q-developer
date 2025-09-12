@@ -94,7 +94,10 @@ After the AWS Replication Agent is installed successfully on an EC2 instance, `C
 
 ### Wait for the delivery of CloudTrail event notification by Amazon Q into your Slack channel.
 
-Amazon Q Developer is subscribed to Amazon SNS Topic. After receiving the CloudWatch event, Amazon Q Dveloper will deliver the event into your Slack channel.
+Amazon Q Developer is subscribed to Amazon SNS Topic. After receiving the CloudWatch event, Amazon Q Developer will deliver the event into your Slack channel. An example screenshot of such a message is below:
+
+![agent_installation_event](assets/CreateSourceServerForDrsEvent.png)
+
 
 ### Build a simple prompt in your Slack channel and ask Amazon Q status of replication status of source servers in Elastic Disaster Recovery service.
 
