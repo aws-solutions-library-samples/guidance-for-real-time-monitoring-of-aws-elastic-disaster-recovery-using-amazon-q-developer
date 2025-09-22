@@ -19,6 +19,7 @@
 7. [Interactive Capabilities](#interactive-capabilities)
 8. [Next Steps](#next-steps)
 9. [Cleanup](#cleanup)
+10. [Notices](#Notices)
 
 ## Overview
 
@@ -150,3 +151,7 @@ To delete and cleanup deployed resources, use one of the following methods:
 ```
 aws cloudformation delete-stack --stack-name <STACK_NAME>
 ```
+
+## Notices
+
+Customers are responsible for making their own independent assessment of the information in this Guidance. This Guidance: (a) is for informational purposes only, (b) represents AWS current product offerings and practices, which are subject to change without notice, and (c) does not create any commitments or assurances from AWS and its affiliates, suppliers or licensors. AWS products or services are provided “as is” without warranties, representations, or conditions of any kind, whether express or implied. AWS responsibilities and liabilities to its customers are controlled by AWS agreements, and this Guidance is not part of, nor does it modify, any agreement between AWS and its customers.
