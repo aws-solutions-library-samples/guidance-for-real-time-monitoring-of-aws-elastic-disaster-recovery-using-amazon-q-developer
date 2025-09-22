@@ -34,6 +34,13 @@ Customers can leverage Q Developer's natural language interface to query their E
 
 You are responsible for the cost of the AWS services used while running this Guidance. Amazon Q Developer for chat channels is available at no extra cost under the free tier. The serverless architecture leverages pay-as-you-go services with very low usage costs: Amazon SNS ($0.60 per million notifications) and Amazon EventBridge ($1.00 per million events with free delivery to services in the same account). For a typical deployment monitoring 5-10 servers, the estimated monthly cost would likely be under $1, as you would need to generate hundreds of thousands of events to reach even a single dollar in charges. Even for large environments with dozens or hundreds of servers, monthly costs would typically remain under $5 unless you're implementing extensive logging or custom metrics.
 
+The following table provides a sample cost breakdown for deploying this Guidance with the default parameters in the US East (N. Virginia) Region for one month.
+
+| AWS service        | Dimensions                          | Cost [USD] |
+|--------------------|-------------------------------------|------------|
+| Amazon SNS         | 1,000,000 REST API calls per month  | $0.60      |
+| Amazon EventBridge | 1,000,000 REST API calls per month  | $1.00      |
+
 ## Prerequisites
 
 
