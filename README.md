@@ -128,14 +128,21 @@ Amazon Q Developer is subscribed to Amazon SNS Topic. After receiving the CloudW
 
 ## Interactive Capabilities
 
-Users can then interact with Amazon Q Developer in the Slack channel using natural language queries such as:
-- "What is the replication status of my source servers in X region?"
-- "Show me source servers with stalled replication"
-- "What's the recovery readiness of server X?"
+1. Users can then interact with Amazon Q Developer in the Slack channel using natural language queries such as:
+   - "What is the replication status of my source servers in X region?"
+   - "Show me source servers with stalled replication"
+   - "What's the recovery readiness of server X?"
 
 An example prompt showing interactive capabilities of Amazon Q Developer using natural language is below:
 
 ![natural language capabilities](assets/naturalLanguagePromptQ.png)
+
+2. Amazon Q Developer enhances DRS notification handling by enabling custom actions directly within Slack conversations. When DRS events trigger notifications, users can leverage Q Developer's 
+natural language interface to execute contextual responses such as automatically creating incident tickets, or running diagnostic commands based on the specific alert 
+type. This integration transforms passive notifications into actionable workflows, allowing teams to respond to disaster recovery events through conversational AI that understands both the technical 
+context of the alert and the appropriate remediation steps, significantly reducing response times during critical recovery scenarios.
+
+To learn more, visit this documentation https://docs.aws.amazon.com/chatbot/latest/adminguide/custom-actions.html
 
 ## Next Steps
 
