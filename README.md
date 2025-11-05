@@ -63,8 +63,7 @@ This Guidance can be deployed in all regions mentioned here https://docs.aws.ama
 ### Prerequisites Setup
 1. Administrator creates and configures Slack workspace integration
    - Create a dedicated Slack channel (private or public) for  Elastic Disaster Recovery monitoring notifications
-   - Authorize Amazon Q Developer to access your Slack workspace following the instructions in sections 3 through 3.2.2 of the [blog post](https://aws.amazon.com/blogs/storage/real-time-monitoring-of-
-elastic-disaster-recovery-using-amazon-q-developer/)
+   - Authorize Amazon Q Developer to access your Slack workspace following the instructions in sections 3 through 3.2.2 of the [blog post](https://aws.amazon.com/blogs/storage/real-time-monitoring-of-elastic-disaster-recovery-using-amazon-q-developer/)
 
 ### Infrastructure Deployment
 2. Administrator deploys the monitoring infrastructure using CloudFormation
